@@ -13,9 +13,19 @@ export interface LeftSubmenuItemStatusProps extends RouteComponentProps {
   label: ReactNode;
   status: 'offline' | 'online';
   to: string;
+  onContextMenu(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void;
 }
 
-const LeftSubmenuItemStatus: FC<LeftSubmenuItemStatusProps> = ({badge, baseUrl, key, label, location, status, to}) => {
+const LeftSubmenuItemStatus: FC<LeftSubmenuItemStatusProps> = ({
+  badge,
+  baseUrl,
+  key,
+  label,
+  location,
+  status,
+  to,
+  onContextMenu,
+}) => {
   const getIsActive = (): boolean => location.pathname.includes(baseUrl);
 
   const renderBadge = (): ReactNode => {
@@ -53,6 +63,7 @@ const LeftSubmenuItemStatus: FC<LeftSubmenuItemStatusProps> = ({badge, baseUrl, 
 
   return (
     <NavLink
+      onContextMenu={onContextMenu}
       activeClassName="LeftSubmenuItemStatus--active"
       className="LeftSubmenuItemStatus"
       isActive={getIsActive}

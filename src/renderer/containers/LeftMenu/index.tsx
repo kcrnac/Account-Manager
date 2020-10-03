@@ -26,6 +26,10 @@ import LeftSubmenu from './LeftSubmenu';
 
 import './LeftMenu.scss';
 
+const handleLeftSubmenuItemOnContextMenu = (event: React.MouseEvent) => {
+  event.preventDefault();
+};
+
 const LeftMenuSelector = (state: RootState) => {
   return {
     activePrimaryValidator: getActivePrimaryValidatorConfig(state),
@@ -63,7 +67,15 @@ const LeftMenu: FC = () => {
           label: nickname || account_number,
           to: `/account/${account_number}/overview`,
         }))
-        .map(({baseUrl, key, label, to}) => <LeftSubmenuItem baseUrl={baseUrl} key={key} label={label} to={to} />),
+        .map(({baseUrl, key, label, to}) => (
+          <LeftSubmenuItem
+            baseUrl={baseUrl}
+            key={key}
+            label={label}
+            to={to}
+            onContextMenu={handleLeftSubmenuItemOnContextMenu}
+          />
+        )),
     [managedAccounts],
   );
 
@@ -87,6 +99,7 @@ const LeftMenu: FC = () => {
             label={label}
             status={isOnline ? 'online' : 'offline'}
             to={to}
+            onContextMenu={handleLeftSubmenuItemOnContextMenu}
           />
         )),
     [bankConfigs, managedBanks],
@@ -101,7 +114,15 @@ const LeftMenu: FC = () => {
           label: nickname || account_number,
           to: `/friend/${account_number}/overview`,
         }))
-        .map(({baseUrl, key, label, to}) => <LeftSubmenuItem baseUrl={baseUrl} key={key} label={label} to={to} />),
+        .map(({baseUrl, key, label, to}) => (
+          <LeftSubmenuItem
+            baseUrl={baseUrl}
+            key={key}
+            label={label}
+            to={to}
+            onContextMenu={handleLeftSubmenuItemOnContextMenu}
+          />
+        )),
     [managedFriends],
   );
 
@@ -125,6 +146,7 @@ const LeftMenu: FC = () => {
             label={label}
             status={isOnline ? 'online' : 'offline'}
             to={to}
+            onContextMenu={handleLeftSubmenuItemOnContextMenu}
           />
         )),
     [managedValidators, validatorConfigs],
